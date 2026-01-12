@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wishlist - SheetShop</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --primary: #C9FDD7;
+  --highlight: #79D1C3;
+  --text: #6892D5;
+  --muted: #777;
+  --bg: #f1f3f6;
+  --light-bg: #fff;
+  --border: #e0e0e0;
+  --cart-color: #ff4747;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);padding-top:120px;padding-bottom:120px;}
+
+/* Marquee */
+.marquee{position:fixed;top:0;width:100%;background:var(--primary);color:var(--text);padding:0.5rem 1rem;font-weight:600;font-size:0.9rem;z-index:1003;}
+.marquee marquee{font-family:inherit;}
+
+/* Desktop Top Nav */
+.top-nav{background:white;border-bottom:1px solid #ddd;padding:0.8rem 2rem;position:fixed;top:40px;left:0;right:0;z-index:1002;display:flex;justify-content:center;}
+.nav-container{display:flex;align-items:center;justify-content:space-between;max-width:1200px;width:100%;}
+.top-nav .logo{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--primary);display:flex;align-items:center;}
+.top-nav .logo img{height:58px;width:auto;object-fit:contain;display:block;}
+.nav-links{display:flex;gap:1.5rem;}
+.nav-link{text-decoration:none;color:var(--muted);font-weight:500;font-size:0.95rem;transition:0.3s;}
+.nav-link:hover{color:var(--highlight);}
+.nav-icons{display:flex;gap:1rem;align-items:center;}
+.nav-icons .icon{font-size:1.2rem;color:var(--text);position:relative;margin-left:1rem;}
+.cart-icon .cart-count,.wishlist-icon .wishlist-count{position:absolute;top:-6px;right:-10px;background:red;color:white;font-size:0.7rem;font-weight:bold;border-radius:10px;padding:2px 5px;display:none;}
+
+/* Mobile Top Bar */
+.mobile-top-bar{display:none;justify-content:space-between;align-items:center;background:white;padding:0.6rem 1rem;position:fixed;top:40px;left:0;right:0;z-index:1002;border-bottom:1px solid #ccc;}
+.mobile-top-bar .logo img{height:48px;}
+.mobile-top-bar .menu-toggle{background:none;border:none;font-size:1.3rem;color:var(--text);cursor:pointer;}
+.mobile-top-bar .right-icons a{
+  position: relative;
+}
+
+.mobile-top-bar .right-icons{display:flex;gap:1rem;align-items:center;}
+.mobile-top-bar .cart-count{
+  position:absolute;
+  top:-6px;
+  right:-10px;
+  background:red;
+  color:white;
+  font-size:0.65rem;
+  font-weight:bold;
+  border-radius:10px;
+  padding:2px 5px;
+  display:none;
+}
+
+
+.mobile-menu{
+  position:fixed;
+  top:90px;
+  left:0;
+  right:0;
+  background:white;
+  z-index:1001;
+  border-top:1px solid #eee;
+  padding:0 1rem;
+  box-shadow:0 6px 16px rgba(0,0,0,0.08);
+
+  /* animation magic */
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.35s ease, padding 0.25s ease;
+}
+
+.mobile-menu.open{
+  max-height:300px;      /* enough to fit links */
+  padding:1rem;
+}
+
+.mobile-menu a{
+  display:block;
+  padding:0.9rem 0;
+  color:var(--text);
+  font-weight:500;
+  text-decoration:none;
+  border-bottom:1px solid #eee;
+}
+
+.mobile-menu a:last-child{
+  border-bottom:none;
+}
+
+
+/* Bottom Mobile Nav */
+.nav-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;border-top:1px solid #ccc;z-index:1001;}
+.nav-bar .nav-item{flex:1;text-align:center;padding:12px 0 8px;font-size:0.75rem;font-weight:500;color:var(--muted);text-decoration:none;display:flex;flex-direction:column;align-items:center;transition:0.3s;border-left:1px solid #d3ba9d;}
+.nav-bar .nav-item:first-child{border-left:none;}
+.nav-bar .nav-item i{font-size:1.1rem;margin-bottom:3px;}
+.nav-bar .nav-item.active{color:var(--highlight);background-color:#fafafa;}
+
+/* Checkout Container */
+.checkout-container{max-width:1000px;margin:2rem auto;display:flex;flex-wrap:wrap;gap:2rem;padding:0 1rem;}
+.cart-items{flex:1 1 400px;background:var(--light-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);}
+.cart-items h2{font-size:1.5rem;margin-bottom:1rem;}
+.cart-item{display:flex;align-items:center;margin-bottom:1rem;border-bottom:1px solid #eee;padding-bottom:0.5rem;gap:1rem;}
+.cart-item img{width:100px;height:100px;object-fit:cover;border-radius:8px;}
+.cart-item-info{flex:1;display:flex;flex-direction:column;justify-content:center;gap:0.3rem;}
+.cart-item-info span{font-weight:500;}
+.cart-item .qty{width:60px;text-align:center;border:1px solid #ddd;border-radius:6px;padding:0.2rem;}
+.cart-total{margin-top:1rem;font-size:1.2rem;font-weight:600;display:flex;justify-content:space-between;flex-wrap:wrap;}
+.checkout-actions{margin-top:1rem;display:flex;flex-direction:column;gap:0.7rem;}
+.checkout-btn{padding:0.9rem;background:#25D366;color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;font-size:1rem;}
+.checkout-btn:hover{background:#1ebe5d;}
+
+/* Responsive */
+@media(max-width:768px){
+  .top-nav{display:none;}
+  .mobile-top-bar{display:flex;}
+  .nav-bar{display:flex;}
+  .checkout-container{flex-direction:column;}
+  .cart-item{flex-direction:row;align-items:center;gap:0.5rem;}
+}
+@media(min-width:769px){.nav-bar{display:none;}}
+
+.cart-item .remove-btn{
+  background:none;
+  border:none;
+  color:#ff4747;
+  cursor:pointer;
+  font-size:1rem;
+  transition:0.2s;
+}
+.cart-item .remove-btn:hover{
+  color:#c92f2f;
+}
+
+/* ===== PAGE ===== */
+h1{text-align:center;margin:20px 0}
+
+.product-list{
+  max-width:1200px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:20px;
+  padding:0 15px;
+}
+.product-card{
+  background:#fff;
+  border-radius:12px;
+  padding:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.image-wrapper{
+  width:100%;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  border-radius:8px;
+}
+.image-wrapper img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.product-card h3{margin:10px 0 5px;text-align:center}
+.product-card p{font-weight:600}
+.product-card button{
+  margin-top:10px;
+  border:none;
+  background:#ff4d4d;
+  color:#fff;
+  padding:8px 18px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .top-nav{display:none}
+  .mobile-top-bar{display:flex}
+  body{padding-top:120px}
+}
+@media(min-width:769px){
+  .nav-bar{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<div class="marquee"><marquee scrollamount="5">🎉 Monsoon Sale is Live! | Free Delivery | COD Available | Limited Time Offers ✨
+</marquee></div>
+
+<!-- Desktop Top Nav -->
+<header class="top-nav">
+  <div class="nav-container">
+    <a href="index.html" class="logo"><img src="images/logo-Photoroom.png" alt="SheetShop"></a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">Shop</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-icons">
+      <a href="javascript:void(0);" class="icon wishlist-icon"><i class="fas fa-heart"></i><span class="wishlist-count">0</span></a>
+      <a href="checkout.html" class="icon cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Top Bar -->
+<div class="mobile-top-bar">
+  <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  <a href="index.html" class="logo"><img src="images/logo-Photoroom.png" alt="SheetShop"></a>
+  <div class="right-icons">
+   <a href="checkout.html" class="cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
+  </div>
+</div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="toggleMenu()">Home</a>
+  <a href="shop.html" onclick="toggleMenu()">Shop</a>
+  <a href="about.html" onclick="toggleMenu()">About</a>
+  <a href="contact.html" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- Bottom Mobile Nav -->
+<nav class="nav-bar">
+  <a href="index.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="shop.html" class="nav-item"><i class="fas fa-store"></i><span>Shop</span></a>
+ <a href="wishlist.html" class="nav-item active">
+  <i class="fas fa-heart"></i>
+  <span>Wishlist</span>
+</a>
+  <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i><span>Contact</span></a>
+</nav>
+
+<h1>Your Wishlist</h1>
+<div id="wishlist" class="product-list"></div>
+
+<script>
+function toggleMenu(){
+  const menu = document.getElementById("mobileMenu");
+  menu.classList.toggle("open");
+}
+
+
+function updateCartCount(){
+  const cart=JSON.parse(localStorage.getItem("cart"))||[];
+  const total=cart.reduce((s,i)=>s+(i.qty||1),0);
+  ["cart-count-desktop","cart-count-mobile"].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){
+      el.textContent=total;
+      el.style.display=total>0?"inline-block":"none";
+    }
+  });
+}
+
+function updateWishlistCount(){
+  const w=JSON.parse(localStorage.getItem("wishlist"))||[];
+  const el=document.getElementById("wishlist-count-desktop");
+  if(el){
+    el.textContent=w.length;
+    el.style.display=w.length>0?"inline-block":"none";
+  }
+}
+
+function loadWishlist(){
+  const wrap=document.getElementById("wishlist");
+  wrap.innerHTML="";
+  const w=JSON.parse(localStorage.getItem("wishlist"))||[];
+
+  if(w.length===0){
+    wrap.innerHTML='<p style="grid-column:1/-1;text-align:center;font-size:18px;">Your wishlist is empty ❤️</p>';
+    return;
+  }
+
+  w.forEach(p=>{
+    const d=document.createElement("div");
+    d.className="product-card";
+    d.innerHTML=`
+      <div class="image-wrapper"><img src="${p.image}"></div>
+      <h3>${p.name}</h3>
+      <p>₹${p.price}</p>
+      <button onclick="removeFromWishlist('${p.name}')">Remove</button>
+    `;
+    wrap.appendChild(d);
+  });
+}
+
+function removeFromWishlist(name){
+  let w=JSON.parse(localStorage.getItem("wishlist"))||[];
+  w=w.filter(i=>i.name!==name);
+  localStorage.setItem("wishlist",JSON.stringify(w));
+  loadWishlist();
+  updateWishlistCount();
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+  loadWishlist();
+  updateCartCount();
+  updateWishlistCount();
+});
+
+
+document.addEventListener("click", function(e){
+  const menu = document.getElementById("mobileMenu");
+  const btn = document.querySelector(".menu-toggle");
+
+  if(!menu.contains(e.target) && !btn.contains(e.target)){
+    menu.classList.remove("open");
+  }
+});
+
+</script>
+
+</body>
+</html>
