@@ -29,7 +29,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
 .top-nav{background:white;border-bottom:1px solid #ddd;padding:0.8rem 2rem;position:fixed;top:40px;left:0;right:0;z-index:1002;display:flex;justify-content:center;}
 .nav-container{display:flex;align-items:center;justify-content:space-between;max-width:1200px;width:100%;}
 .top-nav .logo{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--primary);display:flex;align-items:center;}
-.top-nav .logo img{height:58px;width:auto;object-fit:contain;display:block;}
+.top-nav .logo img{height:38px;width:auto;object-fit:contain;display:block;}
 .nav-links{display:flex;gap:1.5rem;}
 .nav-link{text-decoration:none;color:var(--muted);font-weight:500;font-size:0.95rem;transition:0.3s;}
 .nav-link:hover{color:var(--highlight);}
@@ -39,7 +39,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
 
 /* Mobile Top Bar */
 .mobile-top-bar{display:none;justify-content:space-between;align-items:center;background:white;padding:0.6rem 1rem;position:fixed;top:40px;left:0;right:0;z-index:1002;border-bottom:1px solid #ccc;}
-.mobile-top-bar .logo img{height:48px;}
+.mobile-top-bar .logo img{height:36px;}
 .mobile-top-bar .menu-toggle{background:none;border:none;font-size:1.3rem;color:var(--text);cursor:pointer;}
 .mobile-top-bar .right-icons a{
   position: relative;
@@ -191,6 +191,184 @@ h1{text-align:center;margin:20px 0}
 @media(min-width:769px){
   .nav-bar{display:none}
 }
+.logo img {
+  height: 38px;        /* adjust as needed */
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+
+@media (max-width: 768px) {
+  .logo img {
+    height: 36px;
+  }
+}
+
+
+
+
+/* ================= FOOTER ================= */
+
+.site-footer {
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 4rem;
+  padding: 3rem 1.2rem 1rem;
+  color: var(--text);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
+  gap: 2.2rem;
+}
+
+/* Brand column */
+.brand-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  height: 48px;
+  width: 200px;
+  margin-bottom: 0.8rem;
+}
+
+.footer-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 1.2rem;
+  max-width: 420px;
+}
+
+/* Socials */
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.footer-socials a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  font-size: 1.05rem;
+  transition: 0.25s ease;
+}
+
+.footer-socials a i {
+  line-height: 1;
+  display: block;
+}
+
+.footer-socials a:hover {
+  background: var(--highlight);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Columns */
+.footer-col h4 {
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.footer-col a {
+  display: block;
+  text-decoration: none;
+  color: #555;
+  font-size: 0.92rem;
+  margin-bottom: 0.65rem;
+  transition: 0.25s;
+}
+
+.footer-col a:hover {
+  color: var(--highlight);
+  transform: translateX(3px);
+}
+
+.footer-col p {
+  font-size: 0.92rem;
+  margin-bottom: 0.6rem;
+  color: #555;
+}
+
+.footer-col i {
+  margin-right: 8px;
+  color: var(--highlight);
+}
+
+/* Bottom bar */
+.footer-bottom {
+  border-top: 1px solid #eee;
+  margin-top: 2.2rem;
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .footer-desc {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    padding: 2.2rem 1rem 5.5rem; /* bottom space for mobile nav */
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1.8rem;
+  }
+
+  .brand-col {
+    align-items: center;
+  }
+
+  .footer-desc {
+    text-align: center;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+
+  .footer-col h4 {
+    margin-bottom: 0.6rem;
+  }
+
+  .footer-col a,
+  .footer-col p {
+    font-size: 0.95rem;
+  }
+}
+
+
+
+
+
 </style>
 </head>
 

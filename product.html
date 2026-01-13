@@ -762,7 +762,7 @@ body {
 
 
 .logo img {
-  height: 58px;        /* adjust as needed */
+  height: 38px;        /* adjust as needed */
   width: auto;
   display: block;
   object-fit: contain;
@@ -771,7 +771,228 @@ body {
 
 @media (max-width: 768px) {
   .logo img {
-    height: 50px;
+    height: 36px;
+  }
+}
+
+
+/* --- Slider --- */
+.gallery-main {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  touch-action: pan-y;
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+
+.slider-track img {
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  pointer-events: none;
+}
+
+
+
+@media (max-width: 768px) {
+
+  .container {
+    margin-top: 0.5rem;
+    gap: 1rem;               /* reduce gap between image & info */
+  }
+
+  .gallery {
+    margin-bottom: 0;
+  }
+
+  .info {
+    padding: 1.2rem;
+    gap: 0.6rem;
+  }
+
+  .info h1 {
+    margin-top: 0;
+    font-size: 1.4rem;
+  }
+
+  .price {
+    margin-top: -0.2rem;
+  }
+
+  .badges {
+    margin-bottom: 0.3rem;
+  }
+
+}
+
+
+.gallery {
+  margin-bottom: 0;
+}
+
+
+
+
+/* ================= FOOTER ================= */
+
+.site-footer {
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 4rem;
+  padding: 3rem 1.2rem 1rem;
+  color: var(--text);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
+  gap: 2.2rem;
+}
+
+/* Brand column */
+.brand-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  height: 48px;
+  width: 200px;
+  margin-bottom: 0.8rem;
+}
+
+.footer-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 1.2rem;
+  max-width: 420px;
+}
+
+/* Socials */
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.footer-socials a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  font-size: 1.05rem;
+  transition: 0.25s ease;
+}
+
+.footer-socials a i {
+  line-height: 1;
+  display: block;
+}
+
+.footer-socials a:hover {
+  background: var(--highlight);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Columns */
+.footer-col h4 {
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.footer-col a {
+  display: block;
+  text-decoration: none;
+  color: #555;
+  font-size: 0.92rem;
+  margin-bottom: 0.65rem;
+  transition: 0.25s;
+}
+
+.footer-col a:hover {
+  color: var(--highlight);
+  transform: translateX(3px);
+}
+
+.footer-col p {
+  font-size: 0.92rem;
+  margin-bottom: 0.6rem;
+  color: #555;
+}
+
+.footer-col i {
+  margin-right: 8px;
+  color: var(--highlight);
+}
+
+/* Bottom bar */
+.footer-bottom {
+  border-top: 1px solid #eee;
+  margin-top: 2.2rem;
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .footer-desc {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    padding: 2.2rem 1rem 5.5rem; /* bottom space for mobile nav */
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1.8rem;
+  }
+
+  .brand-col {
+    align-items: center;
+  }
+
+  .footer-desc {
+    text-align: center;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+
+  .footer-col h4 {
+    margin-bottom: 0.6rem;
+  }
+
+  .footer-col a,
+  .footer-col p {
+    font-size: 0.95rem;
   }
 }
 
@@ -877,11 +1098,16 @@ body {
 
 
 <!-- Container -->
+
 <div class="container">
+
   <div class="gallery">
-    <div class="gallery-main"><img id="mainImg" src="" alt="Product Image"></div>
+    <div class="gallery-main" id="slider">
+      <div class="slider-track" id="sliderTrack"></div>
+    </div>
     <div class="gallery-thumbs" id="thumbs"></div>
   </div>
+
   <div class="info">
     <h1 id="prodName"></h1>
     <div class="price" id="prodPrice"></div>
@@ -892,11 +1118,14 @@ body {
     
     <input type="number" id="qtySelect" class="quantity" min="1" value="1">
     <button class="btn-add" onclick="addToCart()">Add to Cart</button>
-   <!--- <button class="btn-buy">Buy Now</button> -->
     <div class="extra">Cash on Delivery available • Delivery in 3–4 days</div>
     <div class="extra">Inclusive of all taxes</div>
   </div>
+
 </div>
+
+    
+
 
 <div id="toast">Added to cart</div>
 
@@ -913,17 +1142,87 @@ document.getElementById("prodPrice").textContent = `₹${product.price}`;
 document.getElementById("badge1").textContent = product.badge1 || "Best Seller";
 document.getElementById("badge2").textContent = product.badge2 || "Free Shipping";
 
-// Gallery
+// --- Slider Gallery (FIXED SNAP VERSION) ---
 const imgs = product.images ? product.images.split(',') : [product.image];
-const mainImg = document.getElementById("mainImg");
+
+const slider = document.getElementById("slider");
+const sliderTrack = document.getElementById("sliderTrack");
 const thumbs = document.getElementById("thumbs");
-imgs.forEach(src=>{
+
+let currentIndex = 0;
+
+// Create slides + thumbs
+imgs.forEach((src, i) => {
   const img = document.createElement("img");
   img.src = src.trim();
-  img.onclick = () => mainImg.src = src.trim();
-  thumbs.appendChild(img);
+  sliderTrack.appendChild(img);
+
+  const t = document.createElement("img");
+  t.src = src.trim();
+  t.onclick = () => goToSlide(i);
+  thumbs.appendChild(t);
 });
-mainImg.src = imgs[0].trim();
+
+function goToSlide(i) {
+  currentIndex = Math.max(0, Math.min(i, imgs.length - 1));
+  const width = slider.clientWidth;
+  const translate = -currentIndex * width;
+  sliderTrack.style.transition = "transform 0.35s ease";
+  sliderTrack.style.transform = `translateX(${translate}px)`;
+}
+
+// --- Drag / Swipe Logic ---
+let isDragging = false;
+let startX = 0;
+let currentX = 0;
+let startTranslate = 0;
+
+function getX(e) {
+  return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
+}
+
+function dragStart(e) {
+  isDragging = true;
+  startX = getX(e);
+  startTranslate = -currentIndex * slider.clientWidth;
+  sliderTrack.style.transition = "none";
+}
+
+function dragMove(e) {
+  if (!isDragging) return;
+  currentX = getX(e);
+  const diff = currentX - startX;
+  sliderTrack.style.transform = `translateX(${startTranslate + diff}px)`;
+}
+
+function dragEnd() {
+  if (!isDragging) return;
+  isDragging = false;
+
+  const movedBy = currentX - startX;
+  const threshold = slider.clientWidth * 0.15; // 15% swipe
+
+  if (movedBy < -threshold && currentIndex < imgs.length - 1) {
+    currentIndex++;
+  } else if (movedBy > threshold && currentIndex > 0) {
+    currentIndex--;
+  }
+
+  goToSlide(currentIndex);
+}
+
+// Events
+slider.addEventListener("mousedown", dragStart);
+slider.addEventListener("mousemove", dragMove);
+slider.addEventListener("mouseup", dragEnd);
+slider.addEventListener("mouseleave", dragEnd);
+
+slider.addEventListener("touchstart", dragStart, { passive: true });
+slider.addEventListener("touchmove", dragMove, { passive: true });
+slider.addEventListener("touchend", dragEnd);
+
+// Init
+goToSlide(0);
 
 
 
