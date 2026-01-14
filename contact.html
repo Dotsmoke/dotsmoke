@@ -266,22 +266,28 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
 }
 
 .footer-socials a {
-  width: 40px;
-  height: 40px;
+  position: relative;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: var(--text);
-  font-size: 1.05rem;
+  display: block;
   transition: 0.25s ease;
 }
 
 .footer-socials a i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  /* 🔥 TRUE CENTER */
+  font-size: 18px;
   line-height: 1;
-  display: block;
 }
+
+.footer-socials a .fa-youtube { transform: translate(-50%, -48%); }
+.footer-socials a .fa-instagram { transform: translate(-50%, -49%); }
+
 
 .footer-socials a:hover {
   background: var(--highlight);
@@ -376,7 +382,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
     font-size: 0.95rem;
   }
 }
-
 
 
 </style>
@@ -529,4 +534,5 @@ function toggleMenu(){
 
 </body>
 </html>
+
 
