@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout - SheetShop</title>
+<title>Checkout - Seras</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -156,6 +156,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
     height: 36px;
   }
 }
+
 
 
 
@@ -324,7 +325,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
 
 
 
-
 </style>
 </head>
 <body>
@@ -340,8 +340,8 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
     <nav class="nav-links">
       <a href="index.html" class="nav-link">Home</a>
       <a href="shop.html" class="nav-link">Shop</a>
-      <a href="about.html" class="nav-link">About</a>
-      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
     </nav>
     <div class="nav-icons">
       <a href="javascript:void(0);" class="icon wishlist-icon"><i class="fas fa-heart"></i><span class="wishlist-count">0</span></a>
@@ -387,7 +387,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
   </div>
 </div>
 
-  
+
 <!-- ================= FOOTER ================= -->
 <footer class="site-footer">
   <div class="footer-container">
@@ -404,7 +404,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
   <a href="#"><i class="fab fa-instagram"></i></a>
   <a href="#"><i class="fab fa-facebook-f"></i></a>
   <a href="#"><i class="fab fa-youtube"></i></a>
-  <a href="#"><i class="fab fa-whatsapp"></i></a>
+  <a href="https://wa.me/9562595352"><i class="fab fa-whatsapp"></i></a>
 </div>
 
     </div>
@@ -432,8 +432,9 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
     <div class="footer-col">
       <h4>Contact Us</h4>
       <p><i class="fas fa-location-dot"></i> India</p>
-      <p><i class="fas fa-envelope"></i> support@sheetshop.com</p>
-      <p><i class="fas fa-phone"></i> +91 90000 00000</p>
+      <p><i class="fas fa-envelope"></i> Sabithsalim231@gmail.com</p>
+      <p><i class="fas fa-phone"></i> +91 8138843060</p>
+      <p><i class="fas fa-phone"></i> +91 9562595352</p>
     </div>
 
   </div>
@@ -444,7 +445,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
 </footer>
 
 
-  
+
 <script>
 // Mobile menu
 function toggleMenu(){
@@ -525,7 +526,7 @@ function checkoutWhatsApp(){
   cart.forEach(item=>{
     message+=`${item.name} x${item.qty} - ₹${item.price*item.qty}%0A`;
   });
-  const url=`https://wa.me/919876543210?text=${message}`;
+  const url=`https://wa.me/9562595352?text=${message}`;
   window.open(url,"_blank");
 }
 
@@ -534,6 +535,3 @@ loadCart();
 </script>
 </body>
 </html>
-
-
-
