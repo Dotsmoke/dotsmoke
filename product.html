@@ -43,25 +43,6 @@
       color: var(--text);
     }
 
- /* Bottom nav OFF by default */
-.nav-bar {
-  display: none;
-}
-
-/* Bottom nav ONLY on mobile */
-@media (max-width: 768px) {
-  .nav-bar {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    justify-content: space-around;
-    background: white;
-    border-top: 1px solid #ccc;
-    z-index: 1001;
-  }
-}
 
 
     /* Marquee */
@@ -1094,7 +1075,8 @@ body {
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html" onclick="toggleMenu()">Home</a>
   <a href="shop.html" onclick="toggleMenu()">Shop</a>
-  <a href="about.html"toggleMenu()">About</a>
+<a href="about.html" onclick="toggleMenu()">About</a>
+
   <a href="contact.html" onclick="toggleMenu()">Contact</a>
 </div>
 
@@ -1371,4 +1353,5 @@ updateCartCount(); updateWishlistCount();
 </body>
 
 </html>
+
 
