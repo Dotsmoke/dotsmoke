@@ -43,6 +43,74 @@
       color: var(--text);
     }
 
+/* ------------------------
+   DESKTOP TOP NAV
+------------------------ */
+
+.top-nav {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+}
+
+/* ------------------------
+   MOBILE BOTTOM NAV
+------------------------ */
+
+/* Bottom nav OFF by default (desktop) */
+.nav-bar {
+  display: none;
+}
+
+/* Bottom nav ON only for mobile */
+@media (max-width: 768px) {
+  .nav-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1001;
+  }
+
+  .nav-item {
+    text-decoration: none;
+    color: #555;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* ------------------------
+   OPTIONAL: ACTIVE STATE
+------------------------ */
+.nav-item.active {
+  color: #000;
+  font-weight: 600;
+}
 
 
     /* Marquee */
@@ -62,32 +130,7 @@
       font-family: inherit;
     }
 
-    /* Navigation */
-    .nav-bar {
-      position: fixed;
-      top: 40px;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-around;
-      background: white;
-      border-top: 1px solid #eee;
-      z-index: 1001;
-    }
-
-    .nav-item {
-      flex: 1;
-      text-align: center;
-      padding: 12px 0 8px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--muted);
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: 0.3s;
-    }
+   
 
     .nav-item i {
       font-size: 1.1rem;
@@ -1353,5 +1396,6 @@ updateCartCount(); updateWishlistCount();
 </body>
 
 </html>
+
 
 
