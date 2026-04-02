@@ -327,12 +327,24 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
   }
 }
 
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
 
+.checkout-form input {
+  padding: 0.7rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
 
 </style>
 </head>
 <body>
-
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <!-- Marquee -->
 <div class="marquee"><marquee scrollamount="5">✨ Trusted Beauty & Wellness Products | Explore Our Collection 🌿 | Secure Online Payments Available | Shop Now ✨
 
@@ -382,12 +394,29 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
 
 <!-- Checkout Container -->
 <div class="checkout-container">
+
+
+  <div class="checkout-form">
+
+  <h3 style="margin-top:1rem;color:#102C57;">Shipping Details</h3>
+
+  <input type="text" id="name" placeholder="Full Name" required>
+  <input type="tel" id="phone" placeholder="Phone Number" required>
+  <input type="text" id="address" placeholder="Full Address" required>
+  <input type="text" id="city" placeholder="City" required>
+  <input type="text" id="pincode" placeholder="Pincode" required>
+
+</div>
+
+
   <div class="cart-items">
     <h2>Your Cart</h2>
     <div id="cartList"></div>
     <div class="cart-total"><span>Total:</span><span id="totalPrice">₹0</span></div>
     <div class="checkout-actions">
-      <button class="checkout-btn" onclick="checkoutWhatsApp()"><i class="fab fa-whatsapp"></i> Checkout via WhatsApp</button>
+    <button class="checkout-btn" onclick="payNow()">
+  <i class="fas fa-credit-card"></i> Pay Now
+</button>
     </div>
   </div>
 </div>
@@ -438,7 +467,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
       <p><i class="fas fa-location-dot"></i> India</p>
       <p><i class="fas fa-envelope"></i> seras.care@gmail.com</p>
       <p><i class="fas fa-phone"></i> +91 8138843060</p>
-     <p><i class="fas fa-phone"></i> +91 8129034424‬</p>
      
     </div>
 
@@ -458,18 +486,17 @@ function toggleMenu(){
   menu.classList.toggle("open");
 }
 
-
 // Load Cart
 function loadCart(){
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // ✅ FIX BROKEN ITEMS (if qty missing or 0)
   cart = cart.map(item => {
     if(!item.qty || item.qty < 1){
       item.qty = 1;
     }
     return item;
   });
+
   localStorage.setItem("cart", JSON.stringify(cart));
 
   const list = document.getElementById("cartList");
@@ -501,14 +528,13 @@ function loadCart(){
 
   document.getElementById("totalPrice").textContent = `₹${total}`;
 
-  // Update cart badges
   document.querySelectorAll(".cart-count").forEach(el=>{
     el.textContent = cart.length;
     el.style.display = cart.length > 0 ? 'inline-block' : 'none';
   });
 }
 
-
+// Remove item
 function removeItem(index){
   let cart = JSON.parse(localStorage.getItem("cart"))||[];
   cart.splice(index,1);
@@ -516,6 +542,7 @@ function removeItem(index){
   loadCart();
 }
 
+// Update quantity
 function updateQty(index,val){
   const cart=JSON.parse(localStorage.getItem("cart"))||[];
   cart[index].qty=parseInt(val)||1;
@@ -523,16 +550,114 @@ function updateQty(index,val){
   loadCart();
 }
 
-// WhatsApp Checkout
-function checkoutWhatsApp(){
-  const cart=JSON.parse(localStorage.getItem("cart"))||[];
-  if(cart.length===0){alert("Cart is empty!"); return;}
-  let message="Hello! I want to order:%0A";
-  cart.forEach(item=>{
-    message+=`${item.name} x${item.qty} - ₹${item.price*item.qty}%0A`;
+// 🔥 SEND ORDER TO GOOGLE SHEET
+function sendOrderToSheet(orderData) {
+
+  const itemsText = orderData.cart.map(item =>
+    `${item.name} (Qty: ${item.qty}) - ₹${item.price * item.qty}`
+  ).join(" | ");
+
+  const payload = {
+    sheet: "Orders",
+    data: {
+      Name: orderData.name,
+      Phone: orderData.phone,
+      Date: new Date().toLocaleString(),
+
+      Email: "",
+      Address: `${orderData.address}, ${orderData.city} - ${orderData.pincode}`,
+      "Payment Method": "Razorpay",
+      "Transaction ID": orderData.payment_id,
+      Items: itemsText,
+      Subtotal: orderData.total,
+      Notes: "",
+      Discount: 0,
+      "Order ID": "SR" + Math.floor(100000 + Math.random() * 900000)
+    }
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbzqG1YukOwk7Z3ic98B6eHZnPfYX2tmwiB4HFiFWpiK3Tv3f8W1fK9L7M1Y1IEUFTw6Cg/exec", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.text())
+  .then(data => {
+    console.log("✅ Order saved:", data);
+  })
+  .catch(err => {
+    console.error("❌ Error saving order:", err);
   });
-  const url=`https://wa.me/+918138843060?text=${message}`;
-  window.open(url,"_blank");
+}
+
+// 🔥 RAZORPAY PAYMENT
+function payNow() {
+
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const address = document.getElementById("address").value;
+  const city = document.getElementById("city").value;
+  const pincode = document.getElementById("pincode").value;
+
+  if (!name || !phone || !address || !city || !pincode) {
+    alert("Please fill all details!");
+    return;
+  }
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cart.length === 0) {
+    alert("Cart is empty!");
+    return;
+  }
+
+  let total = 0;
+  cart.forEach(item => {
+    total += item.price * item.qty;
+  });
+
+  var options = {
+    key: "rzp_live_LsOtu3jPLnqjXr",
+    amount: total * 100,
+    currency: "INR",
+    name: "Seras",
+    description: "Order Payment",
+
+    handler: function (response) {
+
+      console.log("💰 Payment Success:", response);
+
+      // 🔥 SEND ORDER
+      sendOrderToSheet({
+        name,
+        phone,
+        address,
+        city,
+        pincode,
+        cart,
+        total,
+        payment_id: response.razorpay_payment_id
+      });
+
+      // ⏳ wait before reload (important)
+      setTimeout(() => {
+        alert("Payment Successful!");
+        localStorage.removeItem("cart");
+        window.location.reload();
+      }, 1500);
+    },
+
+    prefill: {
+      name: name,
+      contact: phone
+    },
+
+    theme: {
+      color: "#102C57"
+    }
+  };
+
+  var rzp = new Razorpay(options);
+  rzp.open();
 }
 
 // Initialize
