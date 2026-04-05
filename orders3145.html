@@ -42,13 +42,13 @@ input{
 }
 
 .card h3{
-  margin-bottom:0.5rem;
+  margin-bottom:0.4rem;
 }
 
 .meta{
-  font-size:0.9rem;
+  font-size:0.85rem;
   color:#666;
-  margin-bottom:0.5rem;
+  margin-bottom:0.3rem;
 }
 
 .items{
@@ -69,6 +69,25 @@ input{
   font-weight:600;
 }
 
+.badge{
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:6px;
+  font-size:0.75rem;
+  font-weight:600;
+  margin-left:6px;
+}
+
+.cod{
+  background:#ff9800;
+  color:white;
+}
+
+.razorpay{
+  background:#2e7d32;
+  color:white;
+}
+
 </style>
 </head>
 <body>
@@ -76,7 +95,7 @@ input{
 <h1>📦 Orders Dashboard</h1>
 
 <div class="top-bar">
- 
+  <input type="text" id="search" placeholder="Search name / phone...">
   <div class="revenue">Total Revenue: ₹<span id="revenue">0</span></div>
 </div>
 
@@ -84,16 +103,29 @@ input{
 
 <script>
 
-const API = "https://script.google.com/macros/s/AKfycbzqG1YukOwk7Z3ic98B6eHZnPfYX2tmwiB4HFiFWpiK3Tv3f8W1fK9L7M1Y1IEUFTw6Cg/exec?sheet=Orders"; // 🔥 REPLACE THIS
+const API = "https://script.google.com/macros/s/AKfycbzqG1YukOwk7Z3ic98B6eHZnPfYX2tmwiB4HFiFWpiK3Tv3f8W1fK9L7M1Y1IEUFTw6Cg/exec?sheet=Orders";
 
 let allOrders = [];
 
 async function loadOrders(){
-  const res = await fetch(API);
-  const data = await res.json();
+  try{
+    const res = await fetch(API);
+    const data = await res.json();
 
-  allOrders = data.reverse(); // latest first
-  renderOrders(allOrders);
+    console.log("📦 Orders:", data);
+
+    if (!Array.isArray(data)) {
+      alert("Error loading orders");
+      return;
+    }
+
+    allOrders = data.reverse();
+    renderOrders(allOrders);
+
+  }catch(err){
+    console.error(err);
+    alert("Failed to load orders");
+  }
 }
 
 function renderOrders(orders){
@@ -104,19 +136,36 @@ function renderOrders(orders){
 
   orders.forEach(order => {
 
-    totalRevenue += Number(order.Subtotal || 0);
+    const name = (order.Name || "").trim() || "Unknown";
+    const phone = (order.Phone || "").trim() || "-";
+    const date = (order.Date || "").trim() || "-";
+    const address = (order.Address || "").trim() || "-";
+    const items = (order.Items || "").trim() || "-";
+
+    const subtotal = Number(order.Subtotal) || 0;
+    const paymentRaw = (order["Payment Method"] || "").trim().toLowerCase();
+    const orderId = order["Order ID"] || "-";
+
+    totalRevenue += subtotal;
+
+    let badge = "";
+    if (paymentRaw.includes("cod")) {
+      badge = `<span class="badge cod">COD</span>`;
+    } else if (paymentRaw.includes("razor")) {
+      badge = `<span class="badge razorpay">PAID</span>`;
+    }
 
     const div = document.createElement("div");
     div.className = "card";
 
     div.innerHTML = `
-      <h3>${order.Name} (${order.Phone})</h3>
-      <div class="meta">${order.Date}</div>
-      <div>${order.Address}</div>
-      <div class="items">${order.Items}</div>
-      <div class="total">₹${order.Subtotal}</div>
-      <div class="meta">Payment: ${order["Payment Method"]}</div>
-      <div class="meta">Order ID: ${order["Order ID"]}</div>
+      <h3>${name} (${phone}) ${badge}</h3>
+      <div class="meta">${date}</div>
+      <div>${address}</div>
+      <div class="items">${items}</div>
+      <div class="total">₹${subtotal}</div>
+      <div class="meta">Payment: ${paymentRaw || "-"}</div>
+      <div class="meta">Order ID: ${orderId}</div>
     `;
 
     container.appendChild(div);
