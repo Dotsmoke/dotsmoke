@@ -136,15 +136,15 @@ function renderOrders(orders){
 
   orders.forEach(order => {
 
-    const name = (order.Name || "").trim() || "Unknown";
-    const phone = (order.Phone || "").trim() || "-";
-    const date = (order.Date || "").trim() || "-";
-    const address = (order.Address || "").trim() || "-";
-    const items = (order.Items || "").trim() || "-";
+    const name = String(order.Name || "").trim() || "Unknown";
+    const phone = String(order.Phone || "").trim() || "-";
+    const date = String(order.Date || "").trim() || "-";
+    const address = String(order.Address || "").trim() || "-";
+    const items = String(order.Items || "").trim() || "-";
 
     const subtotal = Number(order.Subtotal) || 0;
-    const paymentRaw = (order["Payment Method"] || "").trim().toLowerCase();
-    const orderId = order["Order ID"] || "-";
+    const paymentRaw = String(order["Payment Method"] || "").trim().toLowerCase();
+    const orderId = String(order["Order ID"] || "-");
 
     totalRevenue += subtotal;
 
@@ -173,7 +173,6 @@ function renderOrders(orders){
 
   document.getElementById("revenue").textContent = totalRevenue;
 }
-
 // 🔍 Search
 document.getElementById("search").addEventListener("input", function(){
   const val = this.value.toLowerCase();
