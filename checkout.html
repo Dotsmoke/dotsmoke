@@ -401,7 +401,14 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
   <h3 style="margin-top:1rem;color:#102C57;">Shipping Details</h3>
 
   <input type="text" id="name" placeholder="Full Name" required>
-  <input type="tel" id="phone" placeholder="Phone Number" required>
+  <input
+  type="tel"
+  id="phone"
+  placeholder="Phone Number"
+  maxlength="10"
+  pattern="[0-9]{10}"
+  inputmode="numeric"
+  required>
   <input type="text" id="address" placeholder="Full Address" required>
   <input type="text" id="city" placeholder="City" required>
   <input type="text" id="pincode" placeholder="Pincode" required>
@@ -578,7 +585,7 @@ function sendOrderToSheet(orderData) {
     sheet: "Orders",
     data: {
       Name: orderData.name,
-      Phone: orderData.phone,
+      Phone: "'" + orderData.phone,
       Date: new Date().toLocaleString(),
 
       Email: "",
@@ -610,7 +617,22 @@ function sendOrderToSheet(orderData) {
 function payNow() {
 
   const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
+let phone = document.getElementById("phone").value.trim();
+
+phone = phone.replace(/\D/g, "");
+
+if (phone.startsWith("91") && phone.length === 12) {
+  phone = phone.slice(2);
+}
+
+if (phone.startsWith("0") && phone.length === 11) {
+  phone = phone.slice(1);
+}
+
+if (phone.length !== 10) {
+  alert("Please enter a valid 10-digit phone number");
+  return;
+}
   const address = document.getElementById("address").value;
   const city = document.getElementById("city").value;
   const pincode = document.getElementById("pincode").value;
