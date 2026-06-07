@@ -644,27 +644,26 @@ const total = subtotal + delivery;
 
     handler: function (response) {
 
-      console.log("💰 Payment Success:", response);
+  console.log("💰 Payment Success:", response);
 
-      // 🔥 SEND ORDER
-      sendOrderToSheet({
-        name,
-        phone,
-        address,
-        city,
-        pincode,
-        cart,
-        total,
-        payment_id: response.razorpay_payment_id
-      });
+  sendOrderToSheet({
+    name,
+    phone,
+    address,
+    city,
+    pincode,
+    cart,
+    total,
+    payment_id: response.razorpay_payment_id
+  });
 
-      // ⏳ wait before reload (important)
-      setTimeout(() => {
-        alert("Payment Successful!");
-        localStorage.removeItem("cart");
-        window.location.reload();
-      }, 1500);
-    },
+  // Clear cart
+  localStorage.removeItem("cart");
+
+  // Redirect to thank you page
+  window.location.href =
+    `orderconfirm.html?payment=${response.razorpay_payment_id}&amount=${total}`;
+},
 
     prefill: {
       name: name,
