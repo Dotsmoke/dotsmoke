@@ -405,7 +405,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);pad
   type="tel"
   id="phone"
   placeholder="Phone Number"
-  maxlength="10"
   pattern="[0-9]{10}"
   inputmode="numeric"
   required>
@@ -680,11 +679,11 @@ const total = subtotal + delivery;
   });
 
   // Clear cart
-  localStorage.removeItem("cart");
-
-  // Redirect to thank you page
-  window.location.href =
-    `orderconfirm.html?payment=${response.razorpay_payment_id}&amount=${total}`;
+.then(() => {
+    localStorage.removeItem("cart");
+    window.location.href =
+      `orderconfirm.html?payment=${response.razorpay_payment_id}&amount=${total}`;
+});
 },
 
     prefill: {
