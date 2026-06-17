@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seras - Under Maintenance</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --primary:#102C57;
+    --highlight:#7AAACE;
+    --bg:#f5f7fa;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#f5f7fa,#ffffff);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    text-align:center;
+    max-width:700px;
+}
+
+.logo{
+    width:180px;
+    margin-bottom:25px;
+}
+
+h1{
+    font-family:'DM Serif Display',serif;
+    color:var(--primary);
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+.icon{
+    font-size:80px;
+    margin-bottom:20px;
+}
+
+p{
+    color:#555;
+    font-size:1.1rem;
+    line-height:1.8;
+    margin-bottom:15px;
+}
+
+.contact{
+    margin-top:25px;
+    padding:15px;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.contact a{
+    color:var(--primary);
+    text-decoration:none;
+    font-weight:600;
+}
+
+.loader{
+    width:60px;
+    height:60px;
+    border:5px solid #ddd;
+    border-top:5px solid var(--primary);
+    border-radius:50%;
+    margin:25px auto;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+.footer{
+    margin-top:25px;
+    color:#888;
+    font-size:0.9rem;
+}
+
+@media(max-width:768px){
+
+    h1{
+        font-size:2.2rem;
+    }
+
+    p{
+        font-size:1rem;
+    }
+
+    .icon{
+        font-size:65px;
+    }
+
+    .logo{
+        width:140px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+
+    <div class="icon">🛠️</div>
+
+    <h1>We're Improving Seras</h1>
+
+    <p>
+        Our website is currently undergoing maintenance to provide
+        you with a better shopping experience.
+    </p>
+
+    <div class="loader"></div>
+
+    <p>
+        We'll be back online shortly. Thank you for your patience and support.
+    </p>
+
+    <div class="contact">
+        Need assistance?<br>
+        📞 +91 8138843060<br>
+        ✉️ seras.care@gmail.com
+    </div>
+
+    <div class="footer">
+        © 2026 Seras. All Rights Reserved.
+    </div>
+
+</div>
+
+</body>
+</html>
