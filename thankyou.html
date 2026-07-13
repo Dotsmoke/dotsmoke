@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - Seras</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --primary: #102C57;
+  --highlight: #7AAACE;
+  --text: #333333;
+  --muted: #777;
+  --bg: #f1f3f6;
+  --light-bg: #fff;
+  --border: #e0e0e0;
+  --cart-color: #ff4747;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);padding-top:120px;padding-bottom:60px;}
+
+/* Marquee */
+.marquee{position:fixed;top:0;width:100%;background:var(--primary);color:#fff;padding:0.5rem 1rem;font-weight:600;font-size:0.9rem;z-index:1003;}
+.marquee marquee{font-family:inherit;}
+
+/* Desktop Top Nav */
+.top-nav{background:white;border-bottom:1px solid #ddd;padding:0.8rem 2rem;position:fixed;top:40px;left:0;right:0;z-index:1002;display:flex;justify-content:center;}
+.nav-container{display:flex;align-items:center;justify-content:space-between;max-width:1200px;width:100%;}
+.top-nav .logo{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--primary);display:flex;align-items:center;}
+.top-nav .logo img{height:38px;width:auto;object-fit:contain;display:block;}
+.nav-links{display:flex;gap:1.5rem;}
+.nav-link{text-decoration:none;color:var(--muted);font-weight:500;font-size:0.95rem;transition:0.3s;}
+.nav-link:hover{color:var(--highlight);}
+.nav-icons{display:flex;gap:1rem;align-items:center;}
+.nav-icons .icon{font-size:1.2rem;color:var(--highlight);position:relative;margin-left:1rem;text-decoration:none;}
+.cart-icon .cart-count,.wishlist-icon .wishlist-count{position:absolute;top:-6px;right:-10px;background:red;color:white;font-size:0.7rem;font-weight:bold;border-radius:10px;padding:2px 5px;display:none;}
+
+/* Mobile Top Bar */
+.mobile-top-bar{display:none;justify-content:space-between;align-items:center;background:white;padding:0.6rem 1rem;position:fixed;top:40px;left:0;right:0;z-index:1002;border-bottom:1px solid #ccc;}
+.mobile-top-bar .logo img{height:38px;}
+.mobile-top-bar .menu-toggle{background:none;border:none;font-size:1.3rem;color:var(--primary);cursor:pointer;}
+.mobile-top-bar .right-icons a{position:relative;color:var(--primary);text-decoration:none;}
+.mobile-top-bar .right-icons{display:flex;gap:1rem;align-items:center;}
+.mobile-top-bar .cart-count{position:absolute;top:-6px;right:-10px;background:red;color:white;font-size:0.65rem;font-weight:bold;border-radius:10px;padding:2px 5px;display:none;}
+
+/* Slide-out Mobile Menu */
+.mobile-menu{position:fixed;top:90px;left:0;right:0;background:white;z-index:1001;border-top:1px solid #eee;padding:0 1rem;box-shadow:0 6px 16px rgba(0,0,0,0.08);max-height:0;overflow:hidden;transition:max-height 0.35s ease, padding 0.25s ease;}
+.mobile-menu.open{max-height:300px;padding:1rem;}
+.mobile-menu a{display:block;padding:0.9rem 0;color:var(--text);font-weight:500;text-decoration:none;border-bottom:1px solid #eee;}
+.mobile-menu a:last-child{border-bottom:none;}
+
+/* Bottom Mobile Nav */
+.nav-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:white;justify-content:space-around;border-top:1px solid #ccc;z-index:1001;}
+.nav-bar .nav-item{flex:1;text-align:center;padding:12px 0 8px;font-size:0.75rem;font-weight:500;color:var(--muted);text-decoration:none;display:flex;flex-direction:column;align-items:center;transition:0.3s;border-left:1px solid #eee;}
+.nav-bar .nav-item:first-child{border-left:none;}
+.nav-bar .nav-item i{font-size:1.1rem;margin-bottom:3px;}
+.nav-bar .nav-item.active{color:var(--primary);background-color:#fafafa;}
+
+.logo img{height:38px;width:auto;display:block;object-fit:contain;}
+
+/* ============== RESPONSIVE NAV SWITCH ============== */
+@media (max-width: 768px){
+  .top-nav{display:none;}
+  .mobile-top-bar{display:flex;}
+  .nav-bar{display:flex;}
+  body{padding-top:90px;padding-bottom:80px;}
+}
+
+/* ================= THANK YOU CARD ================= */
+.thankyou-card{
+  max-width:480px;
+  margin:2rem auto;
+  background:var(--light-bg);
+  border-radius:14px;
+  box-shadow:0 8px 30px rgba(16,44,87,0.08);
+  padding:2.5rem 2rem;
+  text-align:center;
+}
+
+.thankyou-card .check{
+  font-size:3.8rem;
+  color:#2e9e5b;
+  margin-bottom:1rem;
+  animation:pop 0.5s ease;
+}
+
+@keyframes pop{
+  0%{transform:scale(0);opacity:0;}
+  70%{transform:scale(1.15);opacity:1;}
+  100%{transform:scale(1);}
+}
+
+.thankyou-card h1{
+  font-family:'DM Serif Display',serif;
+  color:var(--primary);
+  font-size:2rem;
+  margin-bottom:0.6rem;
+}
+
+.thankyou-card > p{
+  color:var(--muted);
+  font-size:0.98rem;
+  margin-bottom:1.6rem;
+}
+
+.thankyou-card .details{
+  background:var(--bg);
+  border-radius:10px;
+  padding:1.2rem 1.4rem;
+  text-align:left;
+  margin-bottom:1.8rem;
+}
+
+.thankyou-card .details p{
+  font-size:0.92rem;
+  color:var(--text);
+  padding:0.4rem 0;
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  border-bottom:1px dashed var(--border);
+}
+
+.thankyou-card .details p:last-child{
+  border-bottom:none;
+}
+
+.thankyou-card .details strong{
+  color:var(--primary);
+  font-weight:600;
+}
+
+.thankyou-card .details span{
+  color:var(--muted);
+  font-weight:500;
+  text-align:right;
+  word-break:break-word;
+}
+
+.thankyou-card .btn{
+  display:block;
+  width:100%;
+  padding:0.85rem;
+  border-radius:8px;
+  background:var(--primary);
+  color:#fff;
+  font-weight:600;
+  text-decoration:none;
+  font-size:0.95rem;
+  margin-bottom:0.8rem;
+  transition:0.25s ease;
+}
+
+.thankyou-card .btn:hover{
+  background:var(--highlight);
+}
+
+.thankyou-card .btn.secondary{
+  background:transparent;
+  color:var(--primary);
+  border:1.5px solid var(--primary);
+  margin-bottom:0;
+}
+
+.thankyou-card .btn.secondary:hover{
+  background:var(--bg);
+}
+
+@media (max-width:520px){
+  .thankyou-card{
+    margin:1rem 1rem;
+    padding:2rem 1.3rem;
+  }
+  .thankyou-card h1{font-size:1.6rem;}
+}
+
+/* ================= FOOTER ================= */
+.site-footer{background:white;border-top:1px solid #e5e7eb;margin-top:4rem;padding:3rem 1.2rem 1rem;color:var(--text);}
+.footer-container{max-width:1200px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:2.2rem;}
+.brand-col{display:flex;flex-direction:column;}
+.footer-logo{height:48px;width:200px;margin-bottom:0.8rem;object-fit:contain;}
+.footer-desc{font-size:0.92rem;line-height:1.6;color:#555;margin-bottom:1.2rem;max-width:420px;}
+.footer-socials{display:flex;align-items:center;gap:0.7rem;}
+.footer-socials a{position:relative;width:42px;height:42px;border-radius:50%;background:var(--primary);color:#fff;display:block;transition:0.25s ease;}
+.footer-socials a i{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;line-height:1;}
+.footer-socials a .fa-youtube{transform:translate(-50%,-48%);}
+.footer-socials a .fa-instagram{transform:translate(-50%,-49%);}
+.footer-socials a:hover{background:var(--highlight);color:white;transform:translateY(-2px);}
+.footer-col h4{font-size:1.05rem;margin-bottom:1rem;color:#222;}
+.footer-col a{display:block;text-decoration:none;color:#555;font-size:0.92rem;margin-bottom:0.65rem;transition:0.25s;}
+.footer-col a:hover{color:var(--highlight);transform:translateX(3px);}
+.footer-col p{font-size:0.92rem;margin-bottom:0.6rem;color:#555;}
+.footer-col i{margin-right:8px;color:var(--highlight);}
+.footer-bottom{border-top:1px solid #eee;margin-top:2.2rem;padding-top:1rem;text-align:center;font-size:0.85rem;color:#777;}
+
+@media (max-width:900px){
+  .footer-container{grid-template-columns:1fr 1fr;gap:2rem;}
+  .footer-desc{max-width:100%;}
+}
+
+@media (max-width:600px){
+  .site-footer{padding:2.2rem 1rem 5.5rem;}
+  .footer-container{grid-template-columns:1fr;text-align:center;gap:1.8rem;}
+  .brand-col{align-items:center;}
+  .footer-desc{text-align:center;}
+  .footer-socials{justify-content:center;}
+  .footer-col h4{margin-bottom:0.6rem;}
+  .footer-col a,.footer-col p{font-size:0.95rem;}
+}
+
+.checkout-form{display:flex;flex-direction:column;gap:0.7rem;margin-top:1rem;}
+.checkout-form input{padding:0.7rem;border:1px solid #ddd;border-radius:6px;font-size:0.9rem;}
+</style>
+</head>
+<body>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<!-- Marquee -->
+<div class="marquee"><marquee scrollamount="5">✨ Trusted Beauty & Wellness Products | Explore Our Collection 🌿 | Secure Online Payments Available | Shop Now ✨</marquee></div>
+
+<!-- Desktop Top Nav -->
+<header class="top-nav">
+  <div class="nav-container">
+    <a href="index.html" class="logo"><img src="images/logo-Photoroom.png" alt="Seras"></a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">Shop</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-icons">
+      <a href="javascript:void(0);" class="icon wishlist-icon"><i class="fas fa-heart"></i><span class="wishlist-count">0</span></a>
+      <a href="javascript:void(0);" class="icon cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Top Bar -->
+<div class="mobile-top-bar">
+  <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  <a href="index.html" class="logo"><img src="images/logo-Photoroom.png" alt="Seras"></a>
+  <div class="right-icons">
+    <a href="javascript:void(0);" class="cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
+  </div>
+</div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="toggleMenu()">Home</a>
+  <a href="shop.html" onclick="toggleMenu()">Shop</a>
+  <a href="about.html" onclick="toggleMenu()">About</a>
+  <a href="contact.html" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- Bottom Mobile Nav -->
+<nav class="nav-bar">
+  <a href="index.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="shop.html" class="nav-item"><i class="fas fa-store"></i><span>Shop</span></a>
+  <a href="javascript:void(0);" class="nav-item active"><i class="fas fa-shopping-cart"></i><span>Cart</span></a>
+  <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i><span>Contact</span></a>
+</nav>
+
+<div class="thankyou-card">
+  <div class="check">
+    <i class="fas fa-check-circle"></i>
+  </div>
+
+  <h1>Thank You!</h1>
+  <p>Your order has been placed successfully.</p>
+
+
+
+  <a href="index.html" class="btn">Return to Home</a>
+  <a href="shop.html" class="btn secondary">Continue Shopping</a>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-col brand-col">
+      <img src="images/logo-Photoroom.png" alt="Seras" class="footer-logo">
+      <p class="footer-desc">
+        Premium Beauty & Wellness products made with clean, natural and plant-based ingredients.
+        Trusted by thousands across India.
+      </p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/seras.online/?utm_source=ig_web_button_share_sheet"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61587077591867"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://wa.me/8138843060"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="wishlist.html">Wishlist</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Policies</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Refund Policy</a>
+      <a href="#">Shipping Policy</a>
+      <a href="#">Terms & Conditions</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <p><i class="fas fa-location-dot"></i> India</p>
+      <p><i class="fas fa-envelope"></i> seras.care@gmail.com</p>
+      <p><i class="fas fa-phone"></i> +91 8138843060</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © <span id="year"></span> Seras. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function toggleMenu(){
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('open');
+  }
+
+  const order = JSON.parse(localStorage.getItem("lastOrder"));
+
+
+</script>
+</body>
+</html>
