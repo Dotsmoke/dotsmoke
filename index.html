@@ -21,6 +21,17 @@
       --bg: #f1f3f6;
     }
 
+    :root {
+    --seras-navy: #102F5B;
+    --seras-blue: #3F6FAE;
+    --seras-pink: #F5A7B8;
+    --seras-blush: #edf0fe;
+    --seras-cream: #FFF9F5;
+    --seras-white: #FFFFFF;
+    --seras-text: #17202A;
+    --seras-muted: #6D7480;
+}
+
     * {
       margin: 0;
       padding: 0;
@@ -1309,6 +1320,329 @@ body {
 }
 
 
+/* ================================
+   SERAS PHILOSOPHY
+================================ */
+
+.seras-philosophy {
+    position: relative;
+    min-height: 650px;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(245, 167, 184, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            var(--seras-cream) 0%,
+            var(--seras-blush) 100%
+        );
+
+    padding: 100px 8%;
+}
+
+
+/* Decorative circles */
+
+.philosophy-bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.circle-one {
+    width: 420px;
+    height: 420px;
+
+    right: -150px;
+    top: -160px;
+
+    background: rgba(63, 111, 174, 0.08);
+}
+
+.circle-two {
+    width: 280px;
+    height: 280px;
+
+    left: -130px;
+    bottom: -140px;
+
+    background: rgba(245, 167, 184, 0.18);
+}
+
+
+/* Main content */
+
+.philosophy-content {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 900px;
+
+    text-align: center;
+}
+
+
+/* Small heading */
+
+.philosophy-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 4px;
+
+    color: var(--seras-blue);
+
+    margin-bottom: 25px;
+}
+
+.philosophy-label::before,
+.philosophy-label::after {
+    content: "";
+    width: 35px;
+    height: 1px;
+
+    background: var(--seras-pink);
+}
+
+
+/* Main heading */
+
+.philosophy-content h2 {
+    margin: 0;
+
+    font-family: "Playfair Display", Georgia, serif;
+
+    font-size: clamp(48px, 7vw, 92px);
+    font-weight: 500;
+    line-height: 0.95;
+
+    letter-spacing: -3px;
+
+    color: var(--seras-navy);
+}
+
+.philosophy-content h2 span {
+    display: block;
+
+    font-style: italic;
+
+    color: var(--seras-pink);
+}
+
+
+/* Description */
+
+.philosophy-content > p {
+    max-width: 540px;
+
+    margin: 30px auto 55px;
+
+    font-size: 17px;
+    line-height: 1.8;
+
+    color: var(--seras-muted);
+}
+
+
+/* Values */
+
+.philosophy-values {
+    display: flex;
+    justify-content: center;
+
+    gap: 65px;
+
+    margin-bottom: 50px;
+}
+
+.value {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    text-align: left;
+}
+
+.value-number {
+    font-family: "Playfair Display", serif;
+
+    font-size: 15px;
+
+    color: var(--seras-pink);
+}
+
+.value h3 {
+    margin: 0 0 5px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    color: var(--seras-navy);
+}
+
+.value p {
+    margin: 0;
+
+    font-size: 12px;
+
+    color: var(--seras-muted);
+}
+
+
+/* CTA */
+
+.philosophy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 25px;
+
+    padding: 16px 25px 16px 28px;
+
+    border-radius: 50px;
+
+    background: var(--seras-navy);
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+
+    box-shadow:
+        0 12px 30px rgba(16, 47, 91, 0.18);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+.philosophy-btn span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    background: var(--seras-pink);
+
+    color: var(--seras-navy);
+
+    transition: transform 0.3s ease;
+}
+
+.philosophy-btn:hover {
+    transform: translateY(-4px);
+
+    background: var(--seras-blue);
+
+    box-shadow:
+        0 18px 40px rgba(16, 47, 91, 0.25);
+}
+
+.philosophy-btn:hover span {
+    transform: rotate(45deg);
+}
+
+
+/* Giant background typography */
+
+.philosophy-word {
+    position: absolute;
+
+    bottom: -55px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: clamp(130px, 22vw, 330px);
+    font-weight: 800;
+
+    letter-spacing: -15px;
+
+    color: rgba(16, 47, 91, 0.035);
+
+    white-space: nowrap;
+
+    pointer-events: none;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+
+    .seras-philosophy {
+        min-height: auto;
+
+        padding: 80px 22px;
+    }
+
+    .philosophy-label {
+        font-size: 9px;
+        letter-spacing: 2.5px;
+    }
+
+    .philosophy-label::before,
+    .philosophy-label::after {
+        width: 20px;
+    }
+
+    .philosophy-content h2 {
+        font-size: 52px;
+        letter-spacing: -2px;
+    }
+
+    .philosophy-content > p {
+        font-size: 14px;
+
+        margin-top: 25px;
+        margin-bottom: 40px;
+    }
+
+    .philosophy-values {
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 22px;
+
+        margin-bottom: 40px;
+    }
+
+    .value {
+        width: 210px;
+    }
+
+    .philosophy-word {
+        bottom: -20px;
+
+        font-size: 110px;
+        letter-spacing: -7px;
+    }
+}
+
+
 
   </style>
  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -1489,6 +1823,64 @@ body {
  
   </button>
   </main>
+
+  <section class="seras-philosophy">
+    <div class="philosophy-bg-circle circle-one"></div>
+    <div class="philosophy-bg-circle circle-two"></div>
+
+    <div class="philosophy-content">
+
+        <span class="philosophy-label">THE SERAS PHILOSOPHY</span>
+
+        <h2>
+            Beauty that feels
+            <span>natural.</span>
+        </h2>
+
+        <p>
+            Thoughtfully crafted beauty and wellness products
+            made for your everyday rituals.
+        </p>
+
+        <div class="philosophy-values">
+
+            <div class="value">
+                <span class="value-number">01</span>
+                <div>
+                    <h3>Natural</h3>
+                    <p>Inspired by nature</p>
+                </div>
+            </div>
+
+            <div class="value">
+                <span class="value-number">02</span>
+                <div>
+                    <h3>Thoughtful</h3>
+                    <p>Made with care</p>
+                </div>
+            </div>
+
+            <div class="value">
+                <span class="value-number">03</span>
+                <div>
+                    <h3>Beautiful</h3>
+                    <p>Made for you</p>
+                </div>
+            </div>
+
+        </div>
+
+        <a href="shop.html" class="philosophy-btn">
+            DISCOVER SERAS
+            <span>↗</span>
+        </a>
+
+    </div>
+
+    <div class="philosophy-word">
+        SERAS
+    </div>
+</section>    
 
 <!-- Full code update including wishlist page and search functionality -->
 <!-- Add inside <main> after #products -->
