@@ -1660,6 +1660,242 @@ body {
 
 
 
+ :root{
+    --navy-900:#131a49;
+    --navy-800:#1b235e;
+    --navy-700:#26317c;
+    --periwinkle:#6d78d8;
+    --lavender:#c3c9f3;
+    --crimson:#e0245e;
+    --crimson-dark:#c01a4d;
+    --mint:#aeead0;
+    --mint-dark:#6fcf9e;
+    --cream-pink:#fbe6ea;
+    --paper:#f6f7fc;
+    --ink:#1f2547;
+    --ink-soft:#5b6088;
+    --white:#ffffff;
+    --radius-lg:22px;
+    --radius-md:16px;
+    --radius-sm:12px;
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0;}
+
+  .seras-reviews{
+    font-family:'Poppins', sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 92% 8%, rgba(174,234,208,0.35) 0%, rgba(174,234,208,0) 45%),
+      radial-gradient(circle at 4% 96%, rgba(224,36,94,0.08) 0%, rgba(224,36,94,0) 40%),
+      linear-gradient(180deg, var(--paper) 0%, #eef0fb 100%);
+    padding: 84px 6vw 96px;
+    overflow:hidden;
+  }
+
+  /* ---------- Header ---------- */
+  .rev-header{
+    max-width:640px;
+    margin:0 0 52px;
+  }
+  .rev-kicker{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--crimson);
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:.2px;
+    margin-bottom:14px;
+  }
+  .rev-kicker svg{ width:16px; height:16px; flex-shrink:0; }
+  .rev-title{
+    font-family:'Playfair Display', serif;
+    font-weight:600;
+    font-size:clamp(34px, 4vw, 50px);
+    line-height:1.12;
+    color:var(--navy-900);
+    margin:0 0 16px;
+  }
+  .rev-title em{
+    font-style:italic;
+    color:var(--crimson);
+    font-weight:500;
+  }
+  .rev-sub{
+    font-size:16px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* ---------- Layout ---------- */
+  .rev-right{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .rev-controls{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+
+  .rev-arrows{
+    display:flex;
+    gap:8px;
+  }
+  .rev-arrow{
+    width:40px; height:40px;
+    border-radius:50%;
+    border:none;
+    background:var(--white);
+    box-shadow: 0 4px 14px rgba(31,37,71,.1);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    color:var(--navy-900);
+    transition: background .2s ease, color .2s ease, transform .15s ease;
+  }
+  .rev-arrow:hover{ background:var(--navy-900); color:var(--white); }
+  .rev-arrow:active{ transform: scale(.94); }
+  .rev-arrow svg{ width:18px; height:18px; }
+
+  /* ---------- Carousel ---------- */
+  .rev-track-wrap{
+    overflow:hidden;
+    margin: 0 -4px;
+  }
+  .rev-track{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding: 4px 4px 14px;
+    scrollbar-width:none;
+  }
+  .rev-track::-webkit-scrollbar{ display:none; }
+
+  .rev-card{
+    scroll-snap-align:start;
+    flex:0 0 300px;
+    background:var(--white);
+    border-radius: var(--radius-md);
+    padding:24px 22px;
+    box-shadow: 0 8px 24px rgba(31,37,71,.07);
+    border:1px solid rgba(31,37,71,.05);
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .rev-card-top{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .rev-avatar{
+    width:44px; height:44px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Playfair Display', serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--white);
+    flex-shrink:0;
+  }
+  .rev-who{ display:flex; flex-direction:column; gap:2px; }
+  .rev-name{
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--navy-900);
+    display:flex;
+    align-items:center;
+    gap:5px;
+  }
+  .rev-verified{ color: var(--mint-dark); width:14px; height:14px; }
+  .rev-location{ font-size:12px; color:var(--ink-soft); }
+
+  .rev-text{
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+    margin:0;
+    flex-grow:1;
+  }
+
+  .rev-product{
+    font-size:11.5px;
+    font-weight:500;
+    color:var(--crimson-dark);
+    background: var(--cream-pink);
+    padding:6px 12px;
+    border-radius:999px;
+    width:fit-content;
+  }
+
+  .rev-dots{
+    display:flex;
+    justify-content:center;
+    gap:7px;
+    margin-top:6px;
+  }
+  .rev-dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background: rgba(38,49,124,.2);
+    border:none;
+    padding:0;
+    cursor:pointer;
+    transition: background .2s ease, width .2s ease;
+  }
+  .rev-dot.is-active{
+    background: var(--crimson);
+    width:20px;
+    border-radius:5px;
+  }
+
+  /* ---------- CTA ---------- */
+  .rev-cta-row{
+    margin-top:8px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .rev-cta{
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    color:var(--white);
+    background: linear-gradient(135deg, var(--navy-800), var(--navy-900));
+    border:none;
+    padding:14px 28px;
+    border-radius:999px;
+    cursor:pointer;
+    box-shadow: 0 10px 24px rgba(19,26,73,.25);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .rev-cta:hover{ transform: translateY(-2px); box-shadow: 0 14px 28px rgba(19,26,73,.3); }
+  .rev-cta-note{ font-size:13px; color:var(--ink-soft); }
+
+  @media (prefers-reduced-motion: reduce){
+    .rev-cta{ transition:none; }
+  }
+
+  @media (max-width: 520px){
+    .seras-reviews{ padding: 60px 5vw 72px; }
+    .rev-card{ flex-basis: 78vw; }
+  }
+    
+
   </style>
  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
@@ -1896,7 +2132,43 @@ body {
     <div class="philosophy-word">
         SERAS
     </div>
-</section>    
+</section>   
+
+  <section class="seras-reviews">
+
+  <div class="rev-header">
+    <div class="rev-kicker">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23L7 14.14 2 9.27l7.1-1.01L12 2z" fill="currentColor"/></svg>
+      Verified customer reviews
+    </div>
+    <h2 class="rev-title">What India is saying<br>about <em>Seras</em>.</h2>
+    <p class="rev-sub">Real words from people who've made Roll-on-Deo and our skincare part of their everyday ritual.</p>
+  </div>
+
+  <div class="rev-right">
+    <div class="rev-controls">
+      <div class="rev-arrows">
+        <button class="rev-arrow" id="revPrev" aria-label="Previous reviews">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="rev-arrow" id="revNext" aria-label="Next reviews">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="rev-track-wrap">
+      <div class="rev-track" id="revTrack"><!-- cards injected by JS --></div>
+    </div>
+
+    <div class="rev-dots" id="revDots"></div>
+
+    <div class="rev-cta-row">
+      <button class="rev-cta">Write a review</button>
+      <span class="rev-cta-note">Bought something recently? We'd love to hear from you.</span>
+    </div>
+  </div>
+</section>
 
 <!-- Full code update including wishlist page and search functionality -->
 <!-- Add inside <main> after #products -->
@@ -2599,6 +2871,105 @@ setInterval(nextSlide, 4000); // change every 4s
 
 
 
+
+(function(){
+  const reviews = [
+    { name:"Arun", location:"Kottayam, Kerala", initials:"AR", color:"#e0245e",
+      text:"നല്ല പ്രോഡക്റ്റ് ആണ് കൊള്ളാം..",
+      product:"Smooth All Day Freshener Underarm Cream" },
+    { name:"Swapna T Das", location:"kottayam, Kerala", initials:"SD", color:"#26317c",
+      text:"Amazing and nice product... Thanku",
+      product:"Roll-On-Deo Natural Deodorant Purple" },
+    { name:"Deepak", location:"Kottayam, Kerala", initials:"D", color:"#6d78d8",
+      text:"Product is very good 👌 awesome!!!",
+      product:"Roll-On-Deo Natural Deodorant Blue" },
+    { name:"Nazeer M A", location:"Kasaragod, Kerala", initials:"N", color:"#c01a4d",
+      text:"Adipoli Sweating smell undaavunnilla",
+      product:"Roll-On-Deo Natural Deodorant Blue" },
+    { name:"Verified Customer", location:"Thrissur, Kerala", initials:"VC", color:"#6fcf9e",
+      text:"വളരെ നല്ലത് ഇഷ്ടം ആയി ഇനിയും വേണം ",
+      product:"Roll-On-Deo Natural Deodorant Purple" },
+    { name:"Verified Customer", location:"Alappuzha, Kerala", initials:"VC", color:"#1b235e",
+      text:"Adipoli product Nalla smell aan , side effecto kaaryagalo onnum ella ",
+      product:"Roll-On-Deo Natural Deodorant Blue" },
+    { name:"Verified Customer", location:"Alappuzha, Kerala", initials:"VC", color:"#1b235e",
+      text:"Product I got its really good",
+      product:"Roll-On-Deo Natural Deodorant Purple" }
+  ];
+
+  const track = document.getElementById('revTrack');
+  const dotsWrap = document.getElementById('revDots');
+
+  function renderCards(){
+    track.innerHTML = reviews.map((r,i) => `
+      <article class="rev-card" data-index="${i}">
+        <div class="rev-card-top">
+          <div class="rev-avatar" style="background:${r.color}">${r.initials}</div>
+          <div class="rev-who">
+            <span class="rev-name">${r.name}
+              <svg class="rev-verified" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 1.3 2.7-.3 1.2 2.4 2.4 1.2-.3 2.7L22 12l-1.6 2.7.3 2.7-2.4 1.2-1.2 2.4-2.7-.3L12 22l-2.4-1.3-2.7.3-1.2-2.4-2.4-1.2.3-2.7L2 12l1.6-2.7-.3-2.7 2.4-1.2 1.2-2.4 2.7.3L12 2z" fill="currentColor" fill-opacity=".15"/><path d="M8.5 12.2l2.2 2.2 4.3-4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="rev-location">${r.location}</span>
+          </div>
+        </div>
+        <p class="rev-text">${r.text}</p>
+        <span class="rev-product">${r.product}</span>
+      </article>
+    `).join('');
+  }
+
+  function renderDots(){
+    const cards = Array.from(track.querySelectorAll('.rev-card'));
+    dotsWrap.innerHTML = cards.map((_,i) => `<button class="rev-dot${i===0?' is-active':''}" data-goto="${i}" aria-label="Go to review ${i+1}"></button>`).join('');
+  }
+
+  function updateActiveDot(){
+    const cards = Array.from(track.querySelectorAll('.rev-card'));
+    const dots = Array.from(dotsWrap.querySelectorAll('.rev-dot'));
+    if(!cards.length) return;
+    const scrollLeft = track.scrollLeft;
+    let closest = 0, min = Infinity;
+    cards.forEach((c,i)=>{
+      const d = Math.abs(c.offsetLeft - track.offsetLeft - scrollLeft);
+      if(d < min){ min = d; closest = i; }
+    });
+    dots.forEach((d,i)=> d.classList.toggle('is-active', i===closest));
+  }
+
+  function scrollToIndex(i){
+    const cards = Array.from(track.querySelectorAll('.rev-card'));
+    if(cards[i]) track.scrollTo({ left: cards[i].offsetLeft - track.offsetLeft, behavior:'smooth' });
+  }
+
+  renderCards();
+  renderDots();
+
+  track.addEventListener('scroll', ()=> {
+    window.requestAnimationFrame(updateActiveDot);
+  });
+
+  dotsWrap.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.rev-dot');
+    if(!btn) return;
+    scrollToIndex(parseInt(btn.dataset.goto,10));
+  });
+
+  document.getElementById('revPrev').addEventListener('click', ()=>{
+    const active = dotsWrap.querySelector('.rev-dot.is-active');
+    let i = active ? parseInt(active.dataset.goto,10) : 0;
+    i = Math.max(0, i-1);
+    scrollToIndex(i);
+  });
+  document.getElementById('revNext').addEventListener('click', ()=>{
+    const cards = Array.from(track.querySelectorAll('.rev-card'));
+    const active = dotsWrap.querySelector('.rev-dot.is-active');
+    let i = active ? parseInt(active.dataset.goto,10) : 0;
+    i = Math.min(cards.length-1, i+1);
+    scrollToIndex(i);
+  });
+
+})();
+  
 
 
 </script>
